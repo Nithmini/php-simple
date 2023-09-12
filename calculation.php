@@ -62,6 +62,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
 ?>
+<h2>Calculation History</h2>
+    <table border="1">
+        <tr>
+            <th>Number 1</th>
+            <th>Number 2</th>
+            <th>Operation</th>
+            <th>Result</th>
+            
+        </tr>
+        <?php
+        $sql = "SELECT * FROM details";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["number1"] . "</td>";
+                echo "<td>" . $row["number2"] . "</td>";
+                echo "<td>" . $row["operation"] . "</td>";
+                echo "<td>" . $row["result"] . "</td>";
+                
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>No records found</td></tr>";
+        }
+        ?>
+    </table>
+
+    <form method="post" action="form.php">
+        <input type="submit" name="clear" value="Clear History">
+    </form>
 </html>
